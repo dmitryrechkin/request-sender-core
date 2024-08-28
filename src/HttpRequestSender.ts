@@ -38,12 +38,14 @@ export class HttpRequestSender implements RequestSenderInterface
 
 				if (contentType && contentType.includes('application/json'))
 				{
-					const responseBody = await response.clone().json().catch(() => {response.text();});
+					const responseClone = response.clone();
+					const responseBody = await responseClone.json().catch(() => {response.text();});
 					console.log('Received response body:', JSON.stringify(responseBody, null, 2));
 				}
 				else if (contentType && contentType.includes('text/plain'))
 				{
-					const responseBody = await response.clone().text();
+					const responseClone = response.clone();
+					const responseBody = await responseClone.text();
 					console.log('Received response body:', responseBody);
 				}
 
