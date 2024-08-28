@@ -28,28 +28,6 @@ export class HttpRequestSender implements RequestSenderInterface
 				};
 				// Return a Response object with an appropriate error message
 				return new Response(null, responseInit);
-			})
-			.then(async response =>
-			{
-				console.log('Received response status:', response.status);
-
-				// Log the response body if it's JSON
-				const contentType = response.headers.get('content-type');
-
-				if (contentType && contentType.includes('application/json'))
-				{
-					const responseClone = response.clone();
-					const responseBody = await responseClone.json().catch(() => {response.text();});
-					console.log('Received response body:', JSON.stringify(responseBody, null, 2));
-				}
-				else if (contentType && contentType.includes('text/plain'))
-				{
-					const responseClone = response.clone();
-					const responseBody = await responseClone.text();
-					console.log('Received response body:', responseBody);
-				}
-
-				return response;
 			});
 	 }
 }
