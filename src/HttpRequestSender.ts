@@ -12,7 +12,11 @@ export class HttpRequestSender implements RequestSenderInterface
 	public async send(url: string, options: RequestInit = {}): Promise<Response>
 	{
 		console.log('Sending request to URL:', url);
-		console.log('Request options:', JSON.stringify(options, null, 2));
+		console.log('Request options:',{
+			headers: options.headers,
+			method: options.method,
+			bodyLength: options.body ? (options.body as string).length : 0
+		});
 
 		return fetch(url, {
 			...options
